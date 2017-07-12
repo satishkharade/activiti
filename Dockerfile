@@ -2,7 +2,7 @@
 # Activiti Dockerfile
 #
 FROM java:7u79-jdk
-MAINTAINER Colin Woodcock "colin.woodcock@gmail.com"
+MAINTAINER Satish Kharade "satish.kharade08@gmail.com"
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
 EXPOSE 8080
@@ -13,15 +13,15 @@ ENV ACTIVITI_VERSION 5.18.0
 # Fetch and explode distributions
 RUN \
   wget http://archive.apache.org/dist/tomcat/tomcat-8/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz -O /tmp/catalina.tar.gz && \
-  wget https://github.com/Activiti/Activiti/releases/download/activiti-${ACTIVITI_VERSION}/activiti-${ACTIVITI_VERSION}.zip -O /tmp/activiti.zip && \
+  wget https://www.dropbox.com/s/knzox8m7ncltmup/p10Activiti.zip -O /tmp/activiti.zip && \
   tar xzf /tmp/catalina.tar.gz -C /opt && \
   ln -s /opt/apache-tomcat-${TOMCAT_VERSION} /opt/tomcat && \
   rm /tmp/catalina.tar.gz && \
   unzip /tmp/activiti.zip -d /opt/activiti && \
   rm -rf /opt/tomcat/webapps/examples && \
   rm -rf /opt/tomcat/webapps/docs && \
-  unzip /opt/activiti/activiti-${ACTIVITI_VERSION}/wars/activiti-explorer.war -d /opt/tomcat/webapps/activiti-explorer && \
-  unzip /opt/activiti/activiti-${ACTIVITI_VERSION}/wars/activiti-rest.war -d /opt/tomcat/webapps/activiti-rest
+  unzip /opt/activiti/wars/activiti-explorer.war -d /opt/tomcat/webapps/activiti-explorer && \
+  unzip /opt/activiti/wars/activiti-rest.war -d /opt/tomcat/webapps/activiti-rest
 
 # MySQL
 ENV MYSQL_CONNECTOR_JAVA_VERSION 5.1.36
